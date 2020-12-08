@@ -24,71 +24,89 @@ package team492;
 
 import trclib.TrcRobot;
 import trclib.TrcRobot.RunMode;
+import frclib.FrcXboxController;
 
-public class FrcTeleOp implements TrcRobot.RobotMode
-{
+public class FrcTeleOp implements TrcRobot.RobotMode {
     //
-    // Global objects.
+    // TeleOp mode global objects.
     //
-    protected final Robot robot;
+    private Robot robot;
 
-    public FrcTeleOp(Robot robot)
-    {
+    public FrcTeleOp(Robot robot) {
         //
         // Create and initialize global object.
         //
         this.robot = robot;
-
-    }   // FrcTeleOp
+    } // FrcTeleOp
 
     //
     // Implements TrcRobot.RunMode interface.
     //
 
     @Override
-    public void startMode(RunMode prevMode, RunMode nextMode)
-    {
+    public void startMode(RunMode prevMode, RunMode nextMode) {
         //
         // Configure joysticks.
         //
 
+        robot.operatorXboxController.setButtonHandler(this::operatorControllerButtonEvent);
+        robot.driverXboxController.setButtonHandler(this::driverControllerButtonEvent);
+
         //
         // Initialize subsystems for TeleOp mode if necessary.
         //
+        robot.setOdometryEnabled(true);
 
-    }   // startMode
+    } // startMode
 
     @Override
-    public void stopMode(RunMode prevMode, RunMode nextMode)
-    {
+    public void stopMode(RunMode prevMode, RunMode nextMode) {
         //
         // Disable subsystems before exiting if necessary.
         //
+        robot.setOdometryEnabled(false);
 
     } // stopMode
 
     @Override
-    public void runPeriodic(double elapsedTime)
-    {
+    public void runPeriodic(double elapsedTime) {
+        FrcXboxController driverGamepad = robot.driverXboxController;
+        FrcXboxController operatorGamepad = robot.operatorXboxController;
+
         //
         // DriveBase operation.
         //
+        double x = driverGamepad.getLeftXWithDeadband(true);
+        double y = driverGamepad.getRightYWithDeadband(true);
+        double rot = driverGamepad.getRightTriggerWithDeadband(true) - driverGamepad.getLeftTriggerWithDeadband(true);
+        robot.driveBase.holonomicDrive(x, y, rot, false);
 
         //
         // Analog control of subsystem is done here if necessary.
         //
 
+        // elevator control
+        double elevatorPower = operatorGamepad.getRightYWithDeadband(false);
+        robot.elevator.setPower(elevatorPower);
+
+
         //
-        // Update dashboard
+        // Update dashboard info.
         //
-        robot.updateDashboard(RunMode.TELEOP_MODE);
-    }   // runPeriodic
+        robot.dashboard.displayPrintf(3, "Mecan: x=%.1f,y=%.1f,rot=%.1f,inv=%s", x, y, rot);
+        robot.dashboard.displayPrintf(4, "DrvBase: pos=%s, vel=%s", robot.driveBase.getFieldPosition(),
+                robot.driveBase.getFieldVelocity());
+        robot.dashboard.displayPrintf(5, "Elevator: pos=%.3f, limitLower=%b", robot.elevator.getPosition(),
+                robot.elevatorLowerLimitSwitch.isActive());
+        robot.dashboard.displayPrintf(6, "Pneumatics: ext=%b", robot.pneumatic.isExtended());
+        robot.dashboard.displayPrintf(7, "EnhncdServo: pos=%.3f, pwr=%.3f", robot.enhancedServo.getPosition(),
+                robot.enhancedServo.getPower());
+    } // runPeriodic
 
     @Override
-    public void runContinuous(double elapsedTime)
-    {
+    public void runContinuous(double elapsedTime) {
         //
-        // Do subsystem auto-assist here if necessary.
+        // Do subsystem assist here if necessary.
         //
 
     } // runContinuous
@@ -96,14 +114,90 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     //
     // Implements FrcButtonHandler.
     //
+    public void operatorControllerButtonEvent(int button, boolean pressed) {
+        robot.dashboard.displayPrintf(1, " OperatorController: button=0x%04x %s", button,
+                pressed ? "pressed" : "released");
 
-    public void joystickButtonEvent(int button, boolean pressed)
-    {
-        robot.dashboard.displayPrintf(8, "Joystick: button=0x%04x %s", button, pressed ? "pressed" : "released");
+        switch (button) {
+            case FrcXboxController.BUTTON_A:
+                break;
 
-        switch (button)
-        {
+            case FrcXboxController.BUTTON_B:
+                break;
+
+            case FrcXboxController.BUTTON_X:
+                break;
+
+            case FrcXboxController.BUTTON_Y:
+                break;
+
+            case FrcXboxController.LEFT_BUMPER:
+                break;
+
+            case FrcXboxController.RIGHT_BUMPER:
+                break;
+
+            case FrcXboxController.BACK:
+                break;
+
+            case FrcXboxController.START:
+                break;
+
+            case FrcXboxController.LEFT_STICK_BUTTON:
+                break;
+
+            case FrcXboxController.RIGHT_STICK_BUTTON:
+                break;
         }
-    }   // joystickButtonEvent
+    } // operatorControllerButtonEvent
 
-}   // class FrcTeleOp
+    public void driverControllerButtonEvent(int button, boolean pressed) {
+        robot.dashboard.displayPrintf(2, " DriverController: button=0x%04x %s", button,
+                pressed ? "pressed" : "released");
+
+        switch (button) {
+            case FrcXboxController.BUTTON_A:
+                if (pressed) {
+                    robot.encoderYPidCtrl.setTarget(120.0);
+                }
+                break;
+
+            case FrcXboxController.BUTTON_B:
+                if (pressed) {
+                    robot.encoderXPidCtrl.setTarget(-84.0);
+                }
+                break;
+
+            case FrcXboxController.BUTTON_X:
+                if (pressed) {
+                    robot.encoderXPidCtrl.setTarget(-84.0);
+                }
+                break;
+
+            case FrcXboxController.BUTTON_Y:
+                if (pressed) {
+                    robot.gyroTurnPidCtrl.setTarget(-90.0);
+                }
+                break;
+
+            case FrcXboxController.LEFT_BUMPER:
+                break;
+
+            case FrcXboxController.RIGHT_BUMPER:
+                break;
+
+            case FrcXboxController.BACK:
+                break;
+
+            case FrcXboxController.START:
+                break;
+
+            case FrcXboxController.LEFT_STICK_BUTTON:
+                break;
+
+            case FrcXboxController.RIGHT_STICK_BUTTON:
+                break;
+        }
+    } // driverControllerButtonEvent
+
+} // class FrcTeleOp

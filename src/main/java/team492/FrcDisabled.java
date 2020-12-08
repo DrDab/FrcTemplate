@@ -28,16 +28,14 @@ import trclib.TrcRobot.RunMode;
 public class FrcDisabled implements TrcRobot.RobotMode
 {
     //
-    // Global objects.
+    // Disabled mode global objects.
     //
-    private final Robot robot;
 
     public FrcDisabled(Robot robot)
     {
         //
         // Create and initialize global objects.
         //
-        this.robot = robot;
 
     }   // FrcDisabled
 
@@ -58,10 +56,6 @@ public class FrcDisabled implements TrcRobot.RobotMode
     @Override
     public void runPeriodic(double elapsedTime)
     {
-        //
-        // Update dashboard
-        //
-        robot.updateDashboard(RunMode.DISABLED_MODE);
     }   // runPeriodic
 
     @Override

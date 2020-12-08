@@ -72,7 +72,7 @@ public class FrcTalonServo extends TrcServo
     }
 
     @Override
-    public void setLogicalPosition(double position)
+    public void setPosition(double position)
     {
         lastSetPos = position;
         double angle = position * 360.0;
@@ -98,7 +98,7 @@ public class FrcTalonServo extends TrcServo
      * @return The last set logical position.
      */
     @Override
-    public double getLogicalPosition()
+    public double getPosition()
     {
         return lastSetPos;
     }
