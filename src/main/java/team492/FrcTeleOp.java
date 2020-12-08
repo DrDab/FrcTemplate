@@ -138,9 +138,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode {
                 break;
 
             case FrcXboxController.BACK:
+                if (pressed)
+                {
+                    robot.elevator.zeroCalibrate();
+                }
                 break;
 
             case FrcXboxController.START:
+                robot.elevator.setManualOverride(pressed);
                 break;
 
             case FrcXboxController.LEFT_STICK_BUTTON:
