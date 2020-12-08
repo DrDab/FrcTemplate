@@ -199,7 +199,7 @@ public class Robot extends FrcRobotBase {
                                 RobotInfo.ELEVATOR_TOLERANCE, this.elevator::getPosition);
                 this.elevator = new TrcPidActuator("elevator", this.elevatorMotor, this.elevatorLowerLimitSwitch,
                                 this.elevatorPidController, RobotInfo.ELEVATOR_CAL_POWER, RobotInfo.ELEVATOR_MIN_POS,
-                                RobotInfo.ELEVATOR_MAX_POS, this::getElevatorPowerComp);
+                                RobotInfo.ELEVATOR_MAX_POS);
                 this.elevator.setPositionScale(RobotInfo.ELEVATOR_INCHES_PER_COUNT);
 
                 //
