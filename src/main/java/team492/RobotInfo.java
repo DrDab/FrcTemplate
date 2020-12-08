@@ -87,30 +87,6 @@ public class RobotInfo {
     //
     public static final double DRIVE_STALL_TIMEOUT = 0.5;
 
-    public static final double DRIVE_SLOW_XSCALE = 0.5;
-    public static final double DRIVE_SLOW_YSCALE = 0.5;
-    public static final double DRIVE_SLOW_TURNSCALE = 0.4;
-
-    public static final double DRIVE_MEDIUM_XSCALE = 0.75;
-    public static final double DRIVE_MEDIUM_YSCALE = 0.75;
-    public static final double DRIVE_MEDIUM_TURNSCALE = 0.6;
-
-    public static final double DRIVE_FAST_XSCALE = 1.0;
-    public static final double DRIVE_FAST_YSCALE = 1.0;
-    public static final double DRIVE_FAST_TURNSCALE = 0.8;
-
-    public static final double DRIVE_GYRO_ASSIST_KP = 1.5;
-    public static final double DRIVE_MAX_ROTATION_RATE = 6.5; // radians per second
-
-    public static final double DRIVE_MAX_XPID_POWER = 0.5;
-    public static final double DRIVE_MAX_YPID_POWER = 0.6;
-    public static final double DRIVE_MAX_TURNPID_POWER = 1.0;
-
-    public static final double DRIVE_MAX_XPID_RAMP_RATE = 0.5;
-    public static final double DRIVE_MAX_YPID_RAMP_RATE = 0.6;
-    public static final double DRIVE_MAX_TURNPID_RAMP_RATE = 1.0;
-
-    // practice robot: 0.012/0.0/0.0
     public static final double ENCODER_X_INCHES_PER_COUNT = 1.6577438;
     public static final double ENCODER_X_KP = 0.017;
     public static final double ENCODER_X_KI = 0.0;
@@ -118,15 +94,12 @@ public class RobotInfo {
     public static final double ENCODER_X_KF = 0.0;
     public static final double ENCODER_X_TOLERANCE = 2.0;
 
-    // practice robot: 0.024/0.0/0.0
     public static final double ENCODER_X_KP_SMALL = 0.022;
     public static final double ENCODER_X_KI_SMALL = 0.0;
     public static final double ENCODER_X_KD_SMALL = 0.0;
     public static final double ENCODER_X_KF_SMALL = 0.0;
     public static final double ENCODER_X_TOLERANCE_SMALL = 1.5;
 
-    // comp robot: 0.02/0.0/0.0016
-    // practice robot: 0.01/0.0/0.001
     public static final double ENCODER_Y_INCHES_PER_COUNT = 2.355935875;
     public static final double ENCODER_Y_KP = 0.011;
     public static final double ENCODER_Y_KI = 0.0;
@@ -134,9 +107,6 @@ public class RobotInfo {
     public static final double ENCODER_Y_KF = 0.0;
     public static final double ENCODER_Y_TOLERANCE = 2.0;
 
-    // Comp robot: 0.015/0.0/0.001
-    // practice robot: 0.008/0.0/0.0007
-    // 3/24 comp robot: 0.0055/0.0/0.00008
     public static final double GYRO_TURN_KP = 0.0055;
     public static final double GYRO_TURN_KI = 0.0;
     public static final double GYRO_TURN_KD = 0.00008;
@@ -148,5 +118,15 @@ public class RobotInfo {
     //
     public static final int SERVO1_PWM_PORT = 0;
     public static final int SERVO2_PWM_PORT = 1;
+
+    public static final double ELEVATOR_KP = 0.5;
+    public static final double ELEVATOR_KI = 0.0;
+    public static final double ELEVATOR_KD = 0.05; // just a placeholder
+    public static final double ELEVATOR_TOLERANCE = 1.0; // inches
+    public static final double ELEVATOR_INCHES_PER_COUNT = 1 / 800.0; // another placeholder
+    public static final double ELEVATOR_CAL_POWER = 0.5;
+    public static final double ELEVATOR_MIN_POS = 0.0;
+    public static final double ELEVATOR_MAX_POS = 48.0; // inches
+    public static final double ELEVATOR_POWER_COMP = 0.25; // constant power compensation factor, placeholder
 
 } // class RobotInfo
