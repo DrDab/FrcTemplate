@@ -173,7 +173,7 @@ public class Robot extends FrcRobotBase
                                 new TrcPidController.PidCoefficients(RobotInfo.GYRO_TURN_KP, RobotInfo.GYRO_TURN_KI,
                                                 RobotInfo.GYRO_TURN_KD, RobotInfo.GYRO_TURN_KF),
                                 RobotInfo.GYRO_TURN_TOLERANCE, driveBase::getHeading);
-                gyroTurnPidCtrl.setAbsoluteSetPoint(true);
+                //gyroTurnPidCtrl.setAbsoluteSetPoint(true);
 
                 pidDrive = new TrcPidDrive("pidDrive", driveBase, encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl);
                 pidDrive.setStallTimeout(RobotInfo.DRIVE_STALL_TIMEOUT);
