@@ -29,23 +29,23 @@ package trclib;
  */
 public abstract class TrcServo
 {
-    protected static final String moduleName = "TrcServo";
+    private static final String moduleName = "TrcServo";
     protected static final boolean debugEnabled = false;
-    protected static final boolean tracingEnabled = false;
-    protected static final boolean useGlobalTracer = false;
-    protected static final TrcDbgTrace.TraceLevel traceLevel = TrcDbgTrace.TraceLevel.API;
-    protected static final TrcDbgTrace.MsgLevel msgLevel = TrcDbgTrace.MsgLevel.INFO;
+    private static final boolean tracingEnabled = false;
+    private static final boolean useGlobalTracer = false;
+    private static final TrcDbgTrace.TraceLevel traceLevel = TrcDbgTrace.TraceLevel.API;
+    private static final TrcDbgTrace.MsgLevel msgLevel = TrcDbgTrace.MsgLevel.INFO;
     protected TrcDbgTrace dbgTrace = null;
 
     /**
-     * This abstract method inverts the servo motor direction.
+     * This method inverts the servo motor direction.
      *
-     * @param inverted specifies the servo direction is inverted if true.
+     * @param inverted specifies true to invert the servo direction, false otherwise.
      */
     public abstract void setInverted(boolean inverted);
 
     /**
-     * This abstract method checks if the servo motor direction is inverted.
+     * This method checks if the servo motor direction is inverted.
      *
      * @return true if the servo direction is inverted, false otherwise.
      */
@@ -59,17 +59,17 @@ public abstract class TrcServo
      * 0.0 is rotating full speed in reverse, 0.5 is to stop the motor and 1.0 is rotating the motor full speed
      * forward. Again, motor direction can be inverted if setInverted is called.
      *
-     * @param position specifies the motor position value.
+     * @param position specifies the logical servo position.
      */
-    public abstract void setPosition(double position);
+    public abstract void setLogicalPosition(double position);
 
     /**
      * This method returns the logical position value set by the last setPosition call. Note that servo motors do not
      * provide real time position feedback. So getPosition doesn't actually return the current position.
      *
-     * @return motor position value set by the last setPosition call.
+     * @return servo position value set by the last setPosition call.
      */
-    public abstract double getPosition();
+    public abstract double getLogicalPosition();
 
     public static final double CONTINUOUS_SERVO_FORWARD_MAX = 1.0;
     public static final double CONTINUOUS_SERVO_REVERSE_MAX = 0.0;
@@ -163,11 +163,24 @@ public abstract class TrcServo
     }    //getEncoderPosition
 
     /**
-     * This method sets the servo motor position. If a notifier is given, it calls the notifier after the given amount
-     * of time has passed.
+     * This method sets the servo motor position. By default, the specified position is the logical position of the
+     * servo (between 0.0 and 1.0). If setPhysicalRange is called with the degree range, the specified position is
+     * the physical degree position.
      *
-     * @param position specifies the physical position of the servo motor. This value may be in degrees if
-     *                 setPhysicalRange is called with the degree range.
+     * @param position specifies the servo position to set to.
+     */
+    public void setPosition(double position)
+    {
+        setLogicalPosition(toLogicalPosition(position));
+    }   //setPosition
+
+    /**
+     * This method sets the servo motor position. If a notifier is given, it calls the notifier after the given
+     * amount of time has passed. By default, the specified position is the logical position of the servo (between
+     * 0.0 and 1.0). If setPhysicalRange is called with the degree range, the specified position is the physical
+     * degree position.
+     *
+     * @param position specifies the servo position to set to.
      * @param timeout specifies a maximum time value the operation should be completed in seconds.
      * @param notifier specifies a notifier to be notified when the timeout event has expired.
      */
@@ -182,10 +195,10 @@ public abstract class TrcServo
 
     /**
      * This method sets the servo motor position. If an event is given, it sets an event after the given amount of
-     * time has passed.
+     * time has passed. By default, the specified position is the logical position of the servo (between 0.0 and 1.0).
+     * If setPhysicalRange is called with the degree range, the specified position is the physical degree position.
      *
-     * @param position specifies the physical position of the servo motor. This value may be in degrees if
-     *                 setPhysicalRange is called with the degree range.
+     * @param position specifies the servo position to set to.
      * @param timeout specifies a maximum time value the operation should be completed in seconds.
      * @param event specifies an event object to signal when the timeout event has expired.
      */
@@ -197,6 +210,17 @@ public abstract class TrcServo
             timer.set(timeout, event);
         }
     }   //setPosition
+
+    /**
+     * This method returns the servo motor position. By default, the returned value is the logical position of the
+     * servo. If setPhysicalRange is called with the degree range, the returned value is the physical degree position.
+     *
+     * @return servo position.
+     */
+    public double getPosition()
+    {
+        return toPhysicalPosition(getLogicalPosition());
+    }   //getPostion
 
     /**
      * This method sets the physical range of the servo motor. This is typically
