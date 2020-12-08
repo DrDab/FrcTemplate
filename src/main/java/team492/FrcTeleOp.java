@@ -26,13 +26,15 @@ import trclib.TrcRobot;
 import trclib.TrcRobot.RunMode;
 import frclib.FrcXboxController;
 
-public class FrcTeleOp implements TrcRobot.RobotMode {
+public class FrcTeleOp implements TrcRobot.RobotMode 
+{
     //
     // TeleOp mode global objects.
     //
     private Robot robot;
 
-    public FrcTeleOp(Robot robot) {
+    public FrcTeleOp(Robot robot) 
+    {
         //
         // Create and initialize global object.
         //
@@ -44,7 +46,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode {
     //
 
     @Override
-    public void startMode(RunMode prevMode, RunMode nextMode) {
+    public void startMode(RunMode prevMode, RunMode nextMode) 
+    {
         //
         // Configure joysticks.
         //
@@ -55,21 +58,21 @@ public class FrcTeleOp implements TrcRobot.RobotMode {
         //
         // Initialize subsystems for TeleOp mode if necessary.
         //
-        robot.setOdometryEnabled(true);
 
     } // startMode
 
     @Override
-    public void stopMode(RunMode prevMode, RunMode nextMode) {
+    public void stopMode(RunMode prevMode, RunMode nextMode)
+    {
         //
         // Disable subsystems before exiting if necessary.
         //
-        robot.setOdometryEnabled(false);
 
     } // stopMode
 
     @Override
-    public void runPeriodic(double elapsedTime) {
+    public void runPeriodic(double elapsedTime) 
+    {
         FrcXboxController driverGamepad = robot.driverXboxController;
         FrcXboxController operatorGamepad = robot.operatorXboxController;
 
@@ -104,7 +107,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode {
     } // runPeriodic
 
     @Override
-    public void runContinuous(double elapsedTime) {
+    public void runContinuous(double elapsedTime) 
+    {
         //
         // Do subsystem assist here if necessary.
         //
@@ -114,11 +118,13 @@ public class FrcTeleOp implements TrcRobot.RobotMode {
     //
     // Implements FrcButtonHandler.
     //
-    public void operatorControllerButtonEvent(int button, boolean pressed) {
+    public void operatorControllerButtonEvent(int button, boolean pressed) 
+    {
         robot.dashboard.displayPrintf(1, " OperatorController: button=0x%04x %s", button,
                 pressed ? "pressed" : "released");
 
-        switch (button) {
+        switch (button) 
+        {
             case FrcXboxController.BUTTON_A:
                 break;
 
@@ -156,31 +162,37 @@ public class FrcTeleOp implements TrcRobot.RobotMode {
         }
     } // operatorControllerButtonEvent
 
-    public void driverControllerButtonEvent(int button, boolean pressed) {
+    public void driverControllerButtonEvent(int button, boolean pressed) 
+    {
         robot.dashboard.displayPrintf(2, " DriverController: button=0x%04x %s", button,
                 pressed ? "pressed" : "released");
 
-        switch (button) {
+        switch (button) 
+        {
             case FrcXboxController.BUTTON_A:
-                if (pressed) {
+                if (pressed) 
+                {
                     robot.encoderYPidCtrl.setTarget(120.0);
                 }
                 break;
 
             case FrcXboxController.BUTTON_B:
-                if (pressed) {
+                if (pressed) 
+                {
                     robot.encoderXPidCtrl.setTarget(-84.0);
                 }
                 break;
 
             case FrcXboxController.BUTTON_X:
-                if (pressed) {
+                if (pressed) 
+                {
                     robot.encoderXPidCtrl.setTarget(-84.0);
                 }
                 break;
 
             case FrcXboxController.BUTTON_Y:
-                if (pressed) {
+                if (pressed) 
+                {
                     robot.gyroTurnPidCtrl.setTarget(-90.0);
                 }
                 break;

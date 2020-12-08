@@ -50,7 +50,8 @@ import trclib.TrcRobot.RunMode;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends FrcRobotBase {
+public class Robot extends FrcRobotBase 
+{
         //
         // Robot preferences.
         //
@@ -117,7 +118,8 @@ public class Robot extends FrcRobotBase {
         /**
          * Constructor.
          */
-        public Robot() {
+        public Robot() 
+        {
                 super(programName);
         } // Robot
 
@@ -126,7 +128,8 @@ public class Robot extends FrcRobotBase {
          * for any initialization code.
          */
         @Override
-        public void robotInit() {
+        public void robotInit() 
+        {
                 //
                 // Create and initialize global objects.
                 //
@@ -224,6 +227,7 @@ public class Robot extends FrcRobotBase {
                 //
                 // Start subsystems.
                 //
+                setOdometryEnabled(true);
 
                 //
                 // Read FMS Match info.
@@ -244,6 +248,7 @@ public class Robot extends FrcRobotBase {
                 //
                 // Stop subsystems.
                 //
+                setOdometryEnabled(false);
 
                 //
                 // Stop trace logging.
