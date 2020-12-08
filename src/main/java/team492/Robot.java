@@ -22,20 +22,15 @@
 
 package team492;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import frclib.FrcRobotBase;
 import hallib.HalDashboard;
-import trclib.TrcMecanumDriveBase;
-import trclib.TrcPidController;
-import trclib.TrcPidDrive;
 import trclib.TrcRobot.RunMode;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the TrcRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the
- * resource directory.
+ * The Main class is configured to instantiate and automatically run this class,
+ * and to call the functions corresponding to each mode, as described in the TrcRobot
+ * documentation. If you change the name of this class or the package after creating
+ * this project, you must also update the Main class to reflect the name change.
  */
 public class Robot extends FrcRobotBase
 {
@@ -47,13 +42,11 @@ public class Robot extends FrcRobotBase
     // Global constants.
     //
     public static final String programName = "FrcTemplate";
-
+ 
     //
     // Global objects.
     //
-    public final DriverStation ds = DriverStation.getInstance();
     public final HalDashboard dashboard = HalDashboard.getInstance();
-    public TrcPidController.PidCoefficients tunePidCoeff;
 
     //
     // Inputs.
@@ -66,8 +59,6 @@ public class Robot extends FrcRobotBase
     //
     // DriveBase subsystem.
     //
-    public TrcMecanumDriveBase driveBase;
-    public TrcPidDrive pidDrive;
 
     //
     // Vision subsystem.
@@ -80,8 +71,6 @@ public class Robot extends FrcRobotBase
     //
     // FMS Match info.
     //
-
-    private FrcAuto autoMode;
 
     /**
      * Constructor.
@@ -132,8 +121,7 @@ public class Robot extends FrcRobotBase
         //
         // Create Robot Modes.
         //
-        autoMode = new FrcAuto(this);
-        setupRobotModes(new FrcTeleOp(this), autoMode, new FrcTest(this), new FrcDisabled(this));
+        setupRobotModes(new FrcTeleOp(this), new FrcAuto(this), new FrcTest(this), new FrcDisabled(this));
 
     }   //robotInit
 
@@ -168,5 +156,10 @@ public class Robot extends FrcRobotBase
         //
 
     }   //robotStopMode
+
+    public void updateDashboard(RunMode runMode)
+    {
+
+    }   //updateDashboard
 
 }   //class Robot

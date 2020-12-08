@@ -28,14 +28,16 @@ import trclib.TrcRobot.RunMode;
 public class FrcTeleOp implements TrcRobot.RobotMode
 {
     //
-    // TeleOp mode global objects.
+    // Global objects.
     //
+    protected final Robot robot;
 
     public FrcTeleOp(Robot robot)
     {
         //
         // Create and initialize global object.
         //
+        this.robot = robot;
 
     }   // FrcTeleOp
 
@@ -76,13 +78,17 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         // Analog control of subsystem is done here if necessary.
         //
 
+        //
+        // Update dashboard
+        //
+        robot.updateDashboard(RunMode.TELEOP_MODE);
     }   // runPeriodic
 
     @Override
     public void runContinuous(double elapsedTime)
     {
         //
-        // Do subsystem assist here if necessary.
+        // Do subsystem auto-assist here if necessary.
         //
 
     } // runContinuous
@@ -90,5 +96,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     //
     // Implements FrcButtonHandler.
     //
+
+    public void joystickButtonEvent(int button, boolean pressed)
+    {
+        robot.dashboard.displayPrintf(8, "Joystick: button=0x%04x %s", button, pressed ? "pressed" : "released");
+
+        switch (button)
+        {
+        }
+    }   // joystickButtonEvent
 
 }   // class FrcTeleOp
