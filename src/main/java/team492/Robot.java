@@ -177,6 +177,7 @@ public class Robot extends FrcRobotBase {
                 pidDrive = new TrcPidDrive("pidDrive", driveBase, encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl);
                 pidDrive.setStallTimeout(RobotInfo.DRIVE_STALL_TIMEOUT);
                 pidDrive.setMsgTracer(globalTracer);
+                pidDrive.setAbsoluteTargetModeEnabled(true);
 
                 //
                 // Create and initialize Vision subsystem.

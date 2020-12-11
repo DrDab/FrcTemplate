@@ -98,8 +98,8 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         // Update dashboard info.
         //
         TrcMecanumDriveBase driveBase = robot.driveBase;
-        robot.dashboard.displayPrintf(3, "Mecan: x=%.1f,y=%.1f,rot=%.1f", x, y, rot);
-        robot.dashboard.displayPrintf(4, "DrvBase: x=%.3f, y=%.3f, r=%.3f", driveBase.getXPosition(), driveBase.getYPosition(), driveBase.getHeading());
+        robot.dashboard.displayPrintf(3, "JoyPwr : x=%.1f,y=%.1f,rot=%.1f", x, y, rot);
+        robot.dashboard.displayPrintf(4, "DrvBase: x=%.3f,y=%.3f,r=%.3f", driveBase.getXPosition(), driveBase.getYPosition(), driveBase.getHeading());
         /*
         robot.dashboard.displayPrintf(4, "DrvBase: pos=%s, vel=%s", robot.driveBase.getFieldPosition(),
                 robot.driveBase.getFieldVelocity());
