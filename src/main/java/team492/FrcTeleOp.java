@@ -179,14 +179,14 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcXboxController.BUTTON_B:
                 if (pressed) 
                 {
-                    robot.encoderXPidCtrl.setTarget(-84.0);
+                    robot.encoderXPidCtrl.setTarget(-60.0);
                 }
                 break;
 
             case FrcXboxController.BUTTON_X:
                 if (pressed) 
                 {
-                    robot.encoderXPidCtrl.setTarget(-84.0);
+                    robot.encoderYPidCtrl.setTarget(-84.0);
                 }
                 break;
 
