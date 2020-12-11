@@ -24,7 +24,8 @@ package team492;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
-
+import edu.wpi.first.wpilibj.Relay.Direction;
+import edu.wpi.first.wpilibj.Relay;
 import frclib.FrcRobotBase;
 import frclib.FrcXboxController;
 import frclib.FrcServo;
@@ -107,6 +108,8 @@ public class Robot extends FrcRobotBase {
         public TrcEnhancedServo enhancedServo;
         public FrcPneumatic pneumatic;
         public TrcPidActuator elevator;
+        public Relay ringLight;
+        public boolean ringLightOn;
 
         //
         // FMS Match info.
@@ -207,6 +210,8 @@ public class Robot extends FrcRobotBase {
                                 this.elevatorPidController, RobotInfo.ELEVATOR_CAL_POWER, RobotInfo.ELEVATOR_MIN_POS,
                                 RobotInfo.ELEVATOR_MAX_POS);
                 this.elevator.setPositionScale(RobotInfo.ELEVATOR_INCHES_PER_COUNT);
+                this.ringLight = new Relay(RobotInfo.RINGLIGHT_CHANNEL, Direction.kForward);
+                this.ringLightOn = false;
 
                 //
                 // AutoAssist commands.

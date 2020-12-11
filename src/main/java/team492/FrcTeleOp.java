@@ -25,6 +25,7 @@ package team492;
 import trclib.TrcMecanumDriveBase;
 import trclib.TrcRobot;
 import trclib.TrcRobot.RunMode;
+import edu.wpi.first.wpilibj.Relay.Value;
 import frclib.FrcXboxController;
 
 public class FrcTeleOp implements TrcRobot.RobotMode 
@@ -131,6 +132,11 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         switch (button) 
         {
             case FrcXboxController.BUTTON_A:
+                if (pressed)
+                {
+                    robot.ringLightOn = !robot.ringLightOn;
+                    robot.ringLight.set(robot.ringLightOn ? Value.kOn : Value.kOff);
+                }
                 break;
 
             case FrcXboxController.BUTTON_B:

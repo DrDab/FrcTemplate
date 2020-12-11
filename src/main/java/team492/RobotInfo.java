@@ -118,6 +118,7 @@ public class RobotInfo {
     //
     public static final int SERVO1_PWM_PORT = 0;
     public static final int SERVO2_PWM_PORT = 1;
+    public static final int RINGLIGHT_CHANNEL = 1;
 
     public static final double ELEVATOR_KP = 0.5;
     public static final double ELEVATOR_KI = 0.0;
