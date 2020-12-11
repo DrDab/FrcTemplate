@@ -22,6 +22,7 @@
 
 package team492;
 
+import trclib.TrcMecanumDriveBase;
 import trclib.TrcRobot;
 import trclib.TrcRobot.RunMode;
 import frclib.FrcXboxController;
@@ -96,9 +97,13 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         //
         // Update dashboard info.
         //
-        robot.dashboard.displayPrintf(3, "Mecan: x=%.1f,y=%.1f,rot=%.1f,inv=%s", x, y, rot);
+        TrcMecanumDriveBase driveBase = robot.driveBase;
+        robot.dashboard.displayPrintf(3, "Mecan: x=%.1f,y=%.1f,rot=%.1f", x, y, rot);
+        robot.dashboard.displayPrintf(4, "DrvBase: x=%.3f, y=%.3f, r=%.3f", driveBase.getXPosition(), driveBase.getYPosition(), driveBase.getHeading());
+        /*
         robot.dashboard.displayPrintf(4, "DrvBase: pos=%s, vel=%s", robot.driveBase.getFieldPosition(),
                 robot.driveBase.getFieldVelocity());
+                */
         robot.dashboard.displayPrintf(5, "Elevator: pos=%.3f, limitLower=%b", robot.elevator.getPosition(),
                 robot.elevatorLowerLimitSwitch.isActive());
         robot.dashboard.displayPrintf(6, "Pneumatics: ext=%b", robot.pneumatic.isExtended());
