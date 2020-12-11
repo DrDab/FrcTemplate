@@ -172,28 +172,28 @@ public class FrcTeleOp implements TrcRobot.RobotMode
             case FrcXboxController.BUTTON_A:
                 if (pressed) 
                 {
-                    robot.encoderYPidCtrl.setTarget(120.0);
+                    robot.pidDrive.setRelativeYTarget(120.0, null);
                 }
                 break;
 
             case FrcXboxController.BUTTON_B:
                 if (pressed) 
                 {
-                    robot.encoderXPidCtrl.setTarget(-60.0);
+                    robot.pidDrive.setRelativeXTarget(-60.0, null);
                 }
                 break;
 
             case FrcXboxController.BUTTON_X:
                 if (pressed) 
                 {
-                    robot.encoderYPidCtrl.setTarget(-84.0);
+                    robot.pidDrive.setRelativeYTarget(-84.0, null);
                 }
                 break;
 
             case FrcXboxController.BUTTON_Y:
                 if (pressed) 
                 {
-                    robot.gyroTurnPidCtrl.setTarget(-90.0);
+                    robot.pidDrive.setRelativeTurnTarget(-90.0, null);
                 }
                 break;
 

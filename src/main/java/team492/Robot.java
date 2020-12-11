@@ -260,6 +260,10 @@ public class Robot extends FrcRobotBase {
 
         public void setOdometryEnabled(boolean enabled) 
         {
+                this.leftFrontWheel.setOdometryEnabled(enabled);
+                this.leftRearWheel.setOdometryEnabled(enabled);
+                this.rightFrontWheel.setOdometryEnabled(enabled);
+                this.rightRearWheel.setOdometryEnabled(enabled);
                 this.driveBase.setOdometryEnabled(enabled);
                 this.elevatorMotor.setOdometryEnabled(enabled);
         }
