@@ -50,8 +50,7 @@ import trclib.TrcRobot.RunMode;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends FrcRobotBase 
-{
+public class Robot extends FrcRobotBase {
         //
         // Robot preferences.
         //
@@ -173,7 +172,7 @@ public class Robot extends FrcRobotBase
                                 new TrcPidController.PidCoefficients(RobotInfo.GYRO_TURN_KP, RobotInfo.GYRO_TURN_KI,
                                                 RobotInfo.GYRO_TURN_KD, RobotInfo.GYRO_TURN_KF),
                                 RobotInfo.GYRO_TURN_TOLERANCE, driveBase::getHeading);
-                //gyroTurnPidCtrl.setAbsoluteSetPoint(true);
+                // gyroTurnPidCtrl.setAbsoluteSetPoint(true);
 
                 pidDrive = new TrcPidDrive("pidDrive", driveBase, encoderXPidCtrl, encoderYPidCtrl, gyroTurnPidCtrl);
                 pidDrive.setStallTimeout(RobotInfo.DRIVE_STALL_TIMEOUT);
@@ -191,15 +190,18 @@ public class Robot extends FrcRobotBase
                 this.servo2.setInverted(true);
                 this.enhancedServo = new TrcEnhancedServo("enhancedServo", this.servo1, this.servo2);
 
-                this.pneumatic = new FrcPneumatic("pneumatic", RobotInfo.PNEUMATIC_CANID, RobotInfo.PNEUMATIC_CH1, RobotInfo.PNEUMATIC_CH2);
+                this.pneumatic = new FrcPneumatic("pneumatic", RobotInfo.PNEUMATIC_CANID, RobotInfo.PNEUMATIC_CH1,
+                                RobotInfo.PNEUMATIC_CH2);
 
-                this.elevatorLowerLimitSwitch = new FrcDigitalInput("elevatorLowerLimitSwitch", RobotInfo.LIMITSWITCH_DIO);
+                this.elevatorLowerLimitSwitch = new FrcDigitalInput("elevatorLowerLimitSwitch",
+                                RobotInfo.LIMITSWITCH_DIO);
                 this.elevatorMotor = new FrcCANTalon("elevatorMotor", RobotInfo.CANID_ELEVATOR);
 
                 this.elevatorPidController = new TrcPidController("elevatorPidController",
                                 new TrcPidController.PidCoefficients(RobotInfo.ELEVATOR_KP, RobotInfo.ELEVATOR_KI,
                                                 RobotInfo.ELEVATOR_KD),
-                                RobotInfo.ELEVATOR_TOLERANCE, this.elevator::getPosition);
+                                RobotInfo.ELEVATOR_TOLERANCE, TrcPidController.DEF_SETTLING_TIME, elevator::getPosition,
+                                this::getElevatorPowerComp);
                 this.elevator = new TrcPidActuator("elevator", this.elevatorMotor, this.elevatorLowerLimitSwitch,
                                 this.elevatorPidController, RobotInfo.ELEVATOR_CAL_POWER, RobotInfo.ELEVATOR_MIN_POS,
                                 RobotInfo.ELEVATOR_MAX_POS);
@@ -222,7 +224,7 @@ public class Robot extends FrcRobotBase
                 return RobotInfo.ELEVATOR_POWER_COMP;
         }
 
-        public void robotStartMode(RunMode runMode, RunMode prevMode) 
+        public void robotStartMode(RunMode runMode, RunMode prevMode)
         {
                 //
                 // Start subsystems.
@@ -243,7 +245,7 @@ public class Robot extends FrcRobotBase
 
         } // robotStartMode
 
-        public void robotStopMode(RunMode runMode, RunMode nextMode)
+        public void robotStopMode(RunMode runMode, RunMode nextMode) 
         {
                 //
                 // Stop subsystems.
