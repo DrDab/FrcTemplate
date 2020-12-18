@@ -26,6 +26,7 @@ import trclib.TrcMecanumDriveBase;
 import trclib.TrcRobot;
 import trclib.TrcRobot.RunMode;
 import edu.wpi.first.wpilibj.Relay.Value;
+import frclib.FrcChoiceMenu;
 import frclib.FrcXboxController;
 
 public class FrcTeleOp implements TrcRobot.RobotMode 
@@ -35,12 +36,27 @@ public class FrcTeleOp implements TrcRobot.RobotMode
     //
     private Robot robot;
 
+    public enum DriveChoices
+    {
+        FWD_10_FT,
+        LEFT_5_FT,
+        BACK_7_FT,
+        LEFT_90_DEG
+    }
+
+    private FrcChoiceMenu<DriveChoices> choiceMenu;
+
     public FrcTeleOp(Robot robot) 
     {
         //
         // Create and initialize global object.
         //
         this.robot = robot;
+        this.choiceMenu = new FrcChoiceMenu<>("Choice Menu");
+        this.choiceMenu.addChoice("Forward 10 ft", DriveChoices.FWD_10_FT, true, false);
+        this.choiceMenu.addChoice("Left 5 ft", DriveChoices.LEFT_5_FT);
+        this.choiceMenu.addChoice("Back 7 ft", DriveChoices.BACK_7_FT);
+        this.choiceMenu.addChoice("Left 90 degrees", DriveChoices.LEFT_90_DEG);
     } // FrcTeleOp
 
     //
@@ -218,6 +234,10 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
 
             case FrcXboxController.START:
+                if (pressed)
+                {
+                    executeDriveChoice();
+                }
                 break;
 
             case FrcXboxController.LEFT_STICK_BUTTON:
@@ -227,5 +247,30 @@ public class FrcTeleOp implements TrcRobot.RobotMode
                 break;
         }
     } // driverControllerButtonEvent
+
+    public void executeDriveChoice()
+    {
+        switch (choiceMenu.getCurrentChoiceObject())
+        {
+            case FWD_10_FT:
+                robot.pidDrive.setRelativeYTarget(120.0, null);
+                break;
+
+            case BACK_7_FT:
+                robot.pidDrive.setRelativeYTarget(-84.0, null);
+                break;
+
+            case LEFT_5_FT:
+                robot.pidDrive.setRelativeXTarget(-60.0, null);
+                break;
+
+            case LEFT_90_DEG:
+                robot.pidDrive.setRelativeTurnTarget(-90.0, null);
+                break;
+
+            default:
+                break;
+        }
+    }
 
 } // class FrcTeleOp
