@@ -56,7 +56,7 @@ public class FrcTeleOp implements TrcRobot.RobotMode
         this.choiceMenu.addChoice("Forward 10 ft", DriveChoices.FWD_10_FT, true, false);
         this.choiceMenu.addChoice("Left 5 ft", DriveChoices.LEFT_5_FT);
         this.choiceMenu.addChoice("Back 7 ft", DriveChoices.BACK_7_FT);
-        this.choiceMenu.addChoice("Left 90 degrees", DriveChoices.LEFT_90_DEG);
+        this.choiceMenu.addChoice("Left 90 degrees", DriveChoices.LEFT_90_DEG, false, true);
     } // FrcTeleOp
 
     //
